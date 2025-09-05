@@ -1,4 +1,3 @@
-
 / {
     chosen {
         zmk,kscan = &kscan0;
@@ -13,12 +12,10 @@
             <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 슬라이드 스위치 (P0.17)
     };
 
-    // 배터리 모니터링
     vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
         io-channels = <&adc 2>;
         output-ohms = <2000000>;
-        full-ohms = <(2000000 + 806000)>;
+        full-ohms = <2806000>;   // 계산된 값으로 숫자 직접 입력
     };
 };
-
