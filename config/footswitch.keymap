@@ -9,8 +9,8 @@
 
         default_layer {
             bindings = <
-                &mkp LCLK      // 풋스위치 1 - 마우스 좌클릭
-                &mkp RCLK     // 풋스위치 2 - 마우스 우클릭
+                &kp MOUSE_BTN1      // 풋스위치 1 - 마우스 좌클릭
+                &kp MOUSE_BTN2     // 풋스위치 2 - 마우스 우클릭
                 &sl 1          // 슬라이드 스위치 - 키보드 모드로 전환
             >;
         };
