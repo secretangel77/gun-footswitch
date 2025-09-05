@@ -1,25 +1,35 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/mouse.h>
 
- / {
+/ {
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-                &kp MS_BTN1     // 풋스위치 1 - 마우스 좌클릭
-                &kp MS_BTN2     // 풋스위치 2 - 마우스 우클릭
-                &sl 1           // 슬라이드 스위치 → keyboard_layer
+                &mkp LCLK      // 풋스위치 1 - 마우스 좌클릭
+                &mkp RCLK      // 풋스위치 2 - 마우스 우클릭
+                &to 1          // 슬라이드 스위치 - 키보드 모드로 전환
             >;
         };
 
         keyboard_layer {
             bindings = <
-                &kp A           // 풋스위치 1 - 키보드 A
-                &kp D           // 풋스위치 2 - 키보드 D
-                &sl 0           // 슬라이드 스위치 → 마우스 레이어
+                &kp A          // 풋스위치 1 - 키보드 A
+                &kp D          // 풋스위치 2 - 키보드 D
+                &to 0          // 슬라이드 스위치 - 마우스 모드로 전환
             >;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+        combo_settings {
+            timeout-ms = <50>;
+            key-positions = <0 1>;
+            bindings = <&bt BT_CLR>;
         };
     };
 };
