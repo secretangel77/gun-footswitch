@@ -1,6 +1,26 @@
-name: Build ZMK firmware
-on: [push, pull_request, workflow_dispatch]
+name: Build ZMK Firmware
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build ZMK firmware
+        uses: zmkfirmware/zmk-actions/build@v1
+        with:
+          board: nice_nano_v2
+          shield: footswitch
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: footswitch-firmware
+          path: build/zephyr/zmk.uf2
