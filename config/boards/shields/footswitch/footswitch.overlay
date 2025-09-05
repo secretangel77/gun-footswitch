@@ -7,15 +7,15 @@
         compatible = "zmk,kscan-gpio-direct";
         
         input-gpios =
-            <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 1 (P0.6)
-            <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2 (P0.8)
-            <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 슬라이드 스위치 (P0.17)
+            <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 1
+            <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2
+            <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 슬라이드 스위치
     };
 
     vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
         io-channels = <&adc 2>;
         output-ohms = <2000000>;
-        full-ohms = <2806000>;   // 계산된 값으로 숫자 직접 입력
+        full-ohms = <2806000>;
     };
 };
