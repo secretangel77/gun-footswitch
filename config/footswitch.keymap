@@ -7,32 +7,85 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // Layer 0: 마우스 모드
-        default_layer {
+        // -------------------
+        // 마우스 모드 (0~3)
+        // -------------------
+        mouse_layer0 {
             bindings = <
-                &mkp MB1      // 풋스위치 1 → 마우스 좌클릭
-                &mkp MB2      // 풋스위치 2 → 마우스 우클릭
-                &sl 0         // 슬라이드 스위치가 OFF → 항상 Layer 0 (마우스 모드)
+                &mkp MB1      // 풋스위치1: 좌클릭
+                &mkp MB2      // 풋스위치2: 우클릭
+                &sl 0         // 슬라이드 스위치 → 마우스 그룹
+                &tog 1        // 추가 스위치 → 다음 마우스 레이어
+            >;
+        };
+        mouse_layer1 {
+            bindings = <
+                &mkp MB2      // 좌/우 반전
+                &mkp MB1
+                &sl 0
+                &tog 1
+            >;
+        };
+        mouse_layer2 {
+            bindings = <
+                &mkp MB3      // 중클릭 + 좌클릭
+                &mkp MB1
+                &sl 0
+                &tog 1
+            >;
+        };
+        mouse_layer3 {
+            bindings = <
+                &mkp MB3      // 뒤로가기
+                &mkp MB2      // 앞으로가기
+                &sl 0
+                &tog 1
             >;
         };
 
-        // Layer 1: 키보드 모드
-        keyboard_layer {
+        // -------------------
+        // 키보드 모드 (10~13)
+        // -------------------
+        kb_layer10 {
             bindings = <
-                &kp A         // 풋스위치 1 → 키보드 A
-                &kp D         // 풋스위치 2 → 키보드 D
-                &sl 1         // 슬라이드 스위치가 ON → 항상 Layer 1 (키보드 모드)
+                &kp A
+                &kp D
+                &sl 10        // 슬라이드 스위치 → 키보드 그룹
+                &tog 11
+            >;
+        };
+        kb_layer11 {
+            bindings = <
+                &kp Q
+                &kp W
+                &sl 10
+                &tog 11
+            >;
+        };
+        kb_layer12 {
+            bindings = <
+                &kp T
+                &kp Y
+                &sl 10
+                &tog 11
+            >;
+        };
+        kb_layer13 {
+            bindings = <
+                &kp Z
+                &kp X
+                &sl 10
+                &tog 11
             >;
         };
     };
 
-    // 두 풋스위치를 동시에 누르면 블루투스 페어링 초기화
     combos {
         compatible = "zmk,combos";
         combo_settings {
             timeout-ms = <50>;
             key-positions = <0 1>;
-            bindings = <&bt BT_CLR>;
+            bindings = <&bt BT_CLR>; // 양쪽 동시에 → 블루투스 초기화
         };
     };
 };
