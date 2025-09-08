@@ -7,79 +7,78 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // -------------------
-        // 마우스 모드 (0~3)
-        // -------------------
-        mouse_layer0 {
+        behaviors {
+            layer_cycle_mouse: behavior_layer_cycle_mouse {
+                compatible = "zmk,behavior-layer-cycle";
+                label = "MOUSE_LAYER_CYCLE";
+                first-layer = <0>;
+                last-layer = <3>;
+            };
+
+            layer_cycle_kb: behavior_layer_cycle_kb {
+                compatible = "zmk,behavior-layer-cycle";
+                label = "KB_LAYER_CYCLE";
+                first-layer = <10>;
+                last-layer = <13>;
+            };
+        };
+
+        // -----------------
+        // 마우스 모드 (Layer 0~3)
+        // -----------------
+        layer0 {
             bindings = <
-                &mkp MB1      // 풋스위치1: 좌클릭
-                &mkp MB2      // 풋스위치2: 우클릭
-                &sl 0         // 슬라이드 스위치 → 마우스 그룹
-                &tog 1        // 추가 스위치 → 다음 마우스 레이어
+                &kp MB1   &kp MB2   // 좌: 좌클릭, 우: 우클릭
+                &sl 0     &layer_cycle_mouse
             >;
         };
-        mouse_layer1 {
+        layer1 {
             bindings = <
-                &mkp MB2      // 좌/우 반전
-                &mkp MB1
-                &sl 0
-                &tog 1
+                &kp MB2   &kp MB1   // 좌우 반전
+                &sl 0     &layer_cycle_mouse
             >;
         };
-        mouse_layer2 {
+        layer2 {
             bindings = <
-                &mkp MB3      // 중클릭 + 좌클릭
-                &mkp MB1
-                &sl 0
-                &tog 1
+                &kp MB3   &kp MB1   // 중간 클릭 조합
+                &sl 0     &layer_cycle_mouse
             >;
         };
-        mouse_layer3 {
+        layer3 {
             bindings = <
-                &mkp MB3      // 뒤로가기
-                &mkp MB2      // 앞으로가기
-                &sl 0
-                &tog 1
+                &kp MB1   &kp MB3
+                &sl 0     &layer_cycle_mouse
             >;
         };
 
-        // -------------------
-        // 키보드 모드 (10~13)
-        // -------------------
-        kb_layer10 {
+        // -----------------
+        // 키보드 모드 (Layer 10~13)
+        // -----------------
+        layer10 {
             bindings = <
-                &kp A
-                &kp D
-                &sl 10        // 슬라이드 스위치 → 키보드 그룹
-                &tog 11
+                &kp A     &kp D
+                &sl 10    &layer_cycle_kb
             >;
         };
-        kb_layer11 {
+        layer11 {
             bindings = <
-                &kp Q
-                &kp W
-                &sl 10
-                &tog 11
+                &kp Q     &kp W
+                &sl 10    &layer_cycle_kb
             >;
         };
-        kb_layer12 {
+        layer12 {
             bindings = <
-                &kp T
-                &kp Y
-                &sl 10
-                &tog 11
+                &kp T     &kp Y
+                &sl 10    &layer_cycle_kb
             >;
         };
-        kb_layer13 {
+        layer13 {
             bindings = <
-                &kp Z
-                &kp X
-                &sl 10
-                &tog 11
+                &kp Z     &kp X
+                &sl 10    &layer_cycle_kb
             >;
         };
     };
-
     combos {
         compatible = "zmk,combos";
         combo_settings {
@@ -89,3 +88,4 @@
         };
     };
 };
+
