@@ -11,6 +11,8 @@
             layer_cycle_mouse: behavior_layer_cycle_mouse {
                 compatible = "zmk,behavior-layer-cycle";
                 label = "MOUSE_LAYER_CYCLE";
+                #binding-cells = <0>;
+                bindings = <&none>;   // ✅ dummy binding
                 first-layer = <0>;
                 last-layer = <3>;
             };
@@ -18,6 +20,8 @@
             layer_cycle_kb: behavior_layer_cycle_kb {
                 compatible = "zmk,behavior-layer-cycle";
                 label = "KB_LAYER_CYCLE";
+                #binding-cells = <0>;
+                bindings = <&none>;   // ✅ dummy binding
                 first-layer = <10>;
                 last-layer = <13>;
             };
