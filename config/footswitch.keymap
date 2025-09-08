@@ -7,29 +7,105 @@
     keymap {
         compatible = "zmk,keymap";
 
+        // -------------------------
+        // Layer 0~3 : 마우스 모드
+        // -------------------------
         default_layer {
             bindings = <
-                &mkp MB1      // 풋스위치 1 - 마우스 좌클릭.
-                &mkp MB2     // 풋스위치 2 - 마우스 우클릭
-                &sl 1          // 슬라이드 스위치 - 키보드 모드로 전환
+                &mkp LCLK    &mkp RCLK    // 풋스위치1,2
+                &tog_mouse              // 모드 전환 (푸시락)
+                &next_mouse             // 레이어 순환 (푸시온)
             >;
         };
 
-        keyboard_layer {
+        layer1 {
             bindings = <
-                &kp A          // 풋스위치 1 - 키보드 A
-                &kp D          // 풋스위치 2 - 키보드 D
-                &sl 0          // 슬라이드 스위치 - 마우스 모드로 전환
+                &mkp RCLK    &mkp LCLK
+                &tog_mouse
+                &next_mouse
+            >;
+        };
+
+        layer2 {
+            bindings = <
+                &mkp MCLK    &mkp LCLK
+                &tog_mouse
+                &next_mouse
+            >;
+        };
+
+        layer3 {
+            bindings = <
+                &mkp LCLK    &mkp MCLK
+                &tog_mouse
+                &next_mouse
+            >;
+        };
+
+        // -------------------------
+        // Layer 10~13 : 키보드 모드
+        // -------------------------
+        layer10 {
+            bindings = <
+                &kp A  &kp D
+                &tog_kb
+                &next_kb
+            >;
+        };
+
+        layer11 {
+            bindings = <
+                &kp Q  &kp W
+                &tog_kb
+                &next_kb
+            >;
+        };
+
+        layer12 {
+            bindings = <
+                &kp T  &kp Y
+                &tog_kb
+                &next_kb
+            >;
+        };
+
+        layer13 {
+            bindings = <
+                &kp Z  &kp X
+                &tog_kb
+                &next_kb
             >;
         };
     };
+};
 
-    combos {
-        compatible = "zmk,combos";
-        combo_settings {
-            timeout-ms = <50>;
-            key-positions = <0 1>;
-            bindings = <&bt BT_CLR>;
+// -----------------------------
+// 커스텀 비헤이비어 정의
+// -----------------------------
+/ {
+    behaviors {
+        // 🔹 모드 전환 (푸시락 스위치)
+        tog_mouse: tog_mouse {
+            compatible = "zmk,behavior-mod-morph";
+            label = "TOGGLE_MOUSE_KEYBOARD";
+            #binding-cells = <0>;
+            bindings = <&to 0>, <&to 10>;   // 마우스 0 ↔ 키보드 10
+        };
+
+        // 🔹 레이어 순환 (푸시온 스위치, 마우스 전용)
+        next_mouse: next_mouse {
+            compatible = "zmk,behavior-tap-dance";
+            label = "NEXT_MOUSE_LAYER";
+            #binding-cells = <0>;
+            bindings = <&mo 1>, <&mo 2>, <&mo 3>, <&mo 0>;
+        };
+
+        // 🔹 레이어 순환 (푸시온 스위치, 키보드 전용)
+        next_kb: next_kb {
+            compatible = "zmk,behavior-tap-dance";
+            label = "NEXT_KEYBOARD_LAYER";
+            #binding-cells = <0>;
+            bindings = <&mo 11>, <&mo 12>, <&mo 13>, <&mo 10>;
         };
     };
 };
