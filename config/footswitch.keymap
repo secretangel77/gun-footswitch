@@ -4,47 +4,41 @@
 #include <dt-bindings/zmk/mouse.h>
 
 / {
+    behaviors {
+        layer_cycle_mouse: behavior_layer_cycle_mouse {
+            compatible = "zmk,behavior-layer-cycle";
+            label = "MOUSE_LAYER_CYCLE";
+            #binding-cells = <0>;
+        };
+
+        layer_cycle_kb: behavior_layer_cycle_kb {
+            compatible = "zmk,behavior-layer-cycle";
+            label = "KB_LAYER_CYCLE";
+            #binding-cells = <0>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
-
-        behaviors {
-            layer_cycle_mouse: behavior_layer_cycle_mouse {
-                compatible = "zmk,behavior-layer-cycle";
-                label = "MOUSE_LAYER_CYCLE";
-                #binding-cells = <0>;
-                bindings = <&none>;   // ✅ dummy binding
-                first-layer = <0>;
-                last-layer = <3>;
-            };
-
-            layer_cycle_kb: behavior_layer_cycle_kb {
-                compatible = "zmk,behavior-layer-cycle";
-                label = "KB_LAYER_CYCLE";
-                #binding-cells = <0>;
-                bindings = <&none>;   // ✅ dummy binding
-                first-layer = <10>;
-                last-layer = <13>;
-            };
-        };
 
         // -----------------
         // 마우스 모드 (Layer 0~3)
         // -----------------
         layer0 {
             bindings = <
-                &kp MB1   &kp MB2   // 좌: 좌클릭, 우: 우클릭
+                &kp MB1   &kp MB2
                 &sl 0     &layer_cycle_mouse
             >;
         };
         layer1 {
             bindings = <
-                &kp MB2   &kp MB1   // 좌우 반전
+                &kp MB2   &kp MB1
                 &sl 0     &layer_cycle_mouse
             >;
         };
         layer2 {
             bindings = <
-                &kp MB3   &kp MB1   // 중간 클릭 조합
+                &kp MB3   &kp MB1
                 &sl 0     &layer_cycle_mouse
             >;
         };
@@ -83,13 +77,6 @@
             >;
         };
     };
-    combos {
-        compatible = "zmk,combos";
-        combo_settings {
-            timeout-ms = <50>;
-            key-positions = <0 1>;
-            bindings = <&bt BT_CLR>; // 양쪽 동시에 → 블루투스 초기화
-        };
-    };
 };
+
 
