@@ -1,6 +1,2 @@
 config SHIELD_FOOTSWITCH
     def_bool $(shields_list_contains,footswitch)
-
-config ZMK_BEHAVIOR_LAYER_CYCLE
-    bool "Enable custom Layer Cycle behavior"
-    default y
