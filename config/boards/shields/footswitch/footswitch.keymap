@@ -115,8 +115,4 @@
             bindings = <&bt BT_CLR>; // 블루투스 페어링 정보 초기화
         };
     };
-    
-    // OLED에 표시될 레이어 이름 정의
-    zmk,layer-names = "Mouse-LR", "Mouse-RL", "Mouse-ML", "Mouse-MR", 
-                      "KB-AD", "KB-QW", "KB-TY", "KB-ZX";
 };
