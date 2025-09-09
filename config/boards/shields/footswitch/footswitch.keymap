@@ -1,0 +1,81 @@
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/mouse.h>
+
+/ {
+    behaviors {
+        layer_cycle_mouse: behavior_layer_cycle_mouse {
+            compatible = "zmk,behavior-layer-cycle";
+            label = "MOUSE_LAYER_CYCLE";
+            #binding-cells = <0>;
+        };
+
+        layer_cycle_kb: behavior_layer_cycle_kb {
+            compatible = "zmk,behavior-layer-cycle";
+            label = "KB_LAYER_CYCLE";
+            #binding-cells = <0>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        // -----------------
+        // 마우스 모드 (Layer 0~3)
+        // -----------------
+        layer0 {
+            bindings = <
+                &kp MB1   &kp MB2
+                &sl 0     &layer_cycle_mouse
+            >;
+        };
+        layer1 {
+            bindings = <
+                &kp MB2   &kp MB1
+                &sl 0     &layer_cycle_mouse
+            >;
+        };
+        layer2 {
+            bindings = <
+                &kp MB3   &kp MB1
+                &sl 0     &layer_cycle_mouse
+            >;
+        };
+        layer3 {
+            bindings = <
+                &kp MB1   &kp MB3
+                &sl 0     &layer_cycle_mouse
+            >;
+        };
+
+        // -----------------
+        // 키보드 모드 (Layer 10~13)
+        // -----------------
+        layer10 {
+            bindings = <
+                &kp A     &kp D
+                &sl 10    &layer_cycle_kb
+            >;
+        };
+        layer11 {
+            bindings = <
+                &kp Q     &kp W
+                &sl 10    &layer_cycle_kb
+            >;
+        };
+        layer12 {
+            bindings = <
+                &kp T     &kp Y
+                &sl 10    &layer_cycle_kb
+            >;
+        };
+        layer13 {
+            bindings = <
+                &kp Z     &kp X
+                &sl 10    &layer_cycle_kb
+            >;
+        };
+    };
+};
