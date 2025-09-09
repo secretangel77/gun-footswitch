@@ -1,7 +1,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,display = &ssd1306;
+        zmk,display = &ssd1306; // OLED 디스플레이 활성화
     };
 
     kscan0: kscan {
@@ -9,11 +9,11 @@
         input-gpios =
             <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 1
             <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2
-            <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 모드 전환 스위치
+            <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 모드 전환 스위치 (푸시락 스위치)
             <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치
     };
 
-    vbatt: vbatt {
+    vbatt: vbatt { // 배터리 전압 측정 설정
         compatible = "zmk,battery-voltage-divider";
         io-channels = <&adc 2>;
         output-ohms = <2000000>;
@@ -21,9 +21,9 @@
     };
 };
 
-&i2c0 {
-    status = "okay";
-    ssd1306: ssd1306@3c {
+&i2c0 { // Nice!Nano v2의 I2C0 버스 설정 (SSD1306 OLED 연결)
+    status = "okay"; // I2C 버스 사용 활성화
+    ssd1306: ssd1306@3c { // SSD1306 OLED 정의 (주소 0x3c)
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         label = "DISPLAY";
