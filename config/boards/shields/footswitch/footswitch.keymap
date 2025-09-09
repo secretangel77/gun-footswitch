@@ -1,123 +1,124 @@
-#include <behaviors.dtsi>
+#include <behaviors.dtsi> // ZMK 기본 비헤이비어 (매크로, 토글 등)
 #include <dt-bindings/zmk/keys.h> // 키보드 키 (A, D 등)
-#include <dt-bindings/zmk/bt.h>   // 블루투스 (BT_CLR 등)
-#include <dt-bindings/zmk/mouse.h>// 마우스 (LCLK, RCLK 등)
+#include <dt-bindings/zmk/bt.h> // 블루투스 (BT_CLR 등)
+#include <dt-bindings/zmk/mouse.h> // 마우스 (LCLK, RCLK 등)
 
 / {
     behaviors {
-        // --- 마우스 모드 내 레이어 순환 매크로 ---
-        // 이 매크로를 누르면 layer 0 → 1 → 2 → 3 → 0 순으로 마우스 레이어를 순환시켜줘.
-        cycle_mouse: cycle_mouse {
+        // 레이어 순환 + OLED 제어 매크로들
+        // 이 매크로들만 있으면 됨! 기존 cycle_mouse, cycle_keyboard는 제거.
+        cycle_mouse_oled: cycle_mouse_oled {
             compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            // macro_tap은 한 번 누를 때 동작
-            // tog는 현재 활성화된 레이어를 끄고, 다음 레이어를 활성화하는 역할
-            bindings = <&macro_tap &tog 1 &tog 2 &tog 3 &tog 0>;
+            #binding-cells = <1>; // 매크로 인자 (blank_after_ms) 사용을 위함
+            bindings = <&macro_tap &tog 1 &tog 2 &tog 3 &tog 0 &sys_get_display_on_behavior &sys_get_display_blank_behavior>;
+            param-names = "blank_after_ms"; // 매크로 인자 이름 정의
         };
-
-        // --- 키보드 모드 내 레이어 순환 매크로 ---
-        // 이 매크로를 누르면 layer 4 → 5 → 6 → 7 → 4 순으로 키보드 레이어를 순환시켜줘.
-        cycle_keyboard: cycle_keyboard {
+        
+        cycle_keyboard_oled: cycle_keyboard_oled {
             compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&macro_tap &tog 5 &tog 6 &tog 7 &tog 4>;
+            #binding-cells = <1>; // 매크로 인자 사용을 위함
+            bindings = <&macro_tap &tog 5 &tog 6 &tog 7 &tog 4 &sys_get_display_on_behavior &sys_get_display_blank_behavior>;
+            param-names = "blank_after_ms"; // 매크로 인자 이름 정의
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        // --- 0. 기본 마우스 모드 (Layer 0) ---
-        // 슬라이드/로커 스위치가 OFF일 때 (기본)
+        // --- 마우스 모드 레이어들 (0~3) ---
+        // layer 0: 마우스 기본 (좌클릭/우클릭)
         default_layer {
             bindings = <
-                &mkp LCLK           // 풋스위치 1: 좌클릭
-                &mkp RCLK           // 풋스위치 2: 우클릭
-                &mo 4               // 메인 모드 스위치 (gpio0 17): 누르면 키보드 모드(Layer 4)로 전환
-                &cycle_mouse        // 새로운 순환 스위치 (gpio0 20): 마우스 레이어 순환
+                &mkp LCLK               // 풋스위치 1: 좌클릭
+                &mkp RCLK               // 풋스위치 2: 우클릭
+                &mo 4                   // 모드 전환 스위치: 누르면 키보드 모드(Layer 4)로 전환
+                &cycle_mouse_oled 5000  // 순환 스위치: 마우스 레이어 순환 + OLED 켜고 5초 뒤 끄기
             >;
         };
-
-        // --- 1. 반전 마우스 모드 (Layer 1) ---
+        
+        // layer 1: 마우스 반전 (우클릭/좌클릭)
         mouse_layer_1 {
             bindings = <
-                &mkp RCLK           // 풋스위치 1: 우클릭
-                &mkp LCLK           // 풋스위치 2: 좌클릭
-                &mo 4               // 메인 모드 스위치: 누르면 키보드 모드(Layer 4)로 전환
-                &cycle_mouse        // 새로운 순환 스위치: 마우스 레이어 순환
+                &mkp RCLK               // 풋스위치 1: 우클릭
+                &mkp LCLK               // 풋스위치 2: 좌클릭
+                &mo 4                   // 모드 전환 스위치
+                &cycle_mouse_oled 5000  // 순환 스위치
             >;
         };
-
-        // --- 2. 중간+좌 마우스 모드 (Layer 2) ---
+        
+        // layer 2: 마우스 중간 + 좌클릭 (중간클릭/좌클릭)
         mouse_layer_2 {
             bindings = <
-                &mkp MCLK           // 풋스위치 1: 중간클릭
-                &mkp LCLK           // 풋스위치 2: 좌클릭
-                &mo 4               // 메인 모드 스위치: 누르면 키보드 모드(Layer 4)로 전환
-                &cycle_mouse        // 새로운 순환 스위치: 마우스 레이어 순환
+                &mkp MCLK               // 풋스위치 1: 중간클릭
+                &mkp LCLK               // 풋스위치 2: 좌클릭
+                &mo 4                   // 모드 전환 스위치
+                &cycle_mouse_oled 5000  // 순환 스위치
             >;
         };
-
-        // --- 3. 좌+중간 마우스 모드 (Layer 3) ---
+        
+        // layer 3: 마우스 좌클릭 + 중간 (좌클릭/중간클릭)
         mouse_layer_3 {
             bindings = <
-                &mkp LCLK           // 풋스위치 1: 좌클릭
-                &mkp MCLK           // 풋스위치 2: 중간클릭
-                &mo 4               // 메인 모드 스위치: 누르면 키보드 모드(Layer 4)로 전환
-                &cycle_mouse        // 새로운 순환 스위치: 마우스 레이어 순환
+                &mkp LCLK               // 풋스위치 1: 좌클릭
+                &mkp MCLK               // 풋스위치 2: 중간클릭
+                &mo 4                   // 모드 전환 스위치
+                &cycle_mouse_oled 5000  // 순환 스위치
             >;
         };
-
-        // --- 4. 기본 키보드 모드 (Layer 4) ---
-        // 슬라이드/로커 스위치가 ON일 때 (메인 스위치 누른 상태)
+        
+        // --- 키보드 모드 레이어들 (4~7) ---
+        // layer 4: 키보드 기본 (A/D)
         keyboard_base {
             bindings = <
-                &kp A               // 풋스위치 1: A
-                &kp D               // 풋스위치 2: D
-                &trans              // 메인 모드 스위치: &mo에 의해 이미 이 레이어에 있으니 &trans로 통과
-                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
+                &kp A                   // 풋스위치 1: A
+                &kp D                   // 풋스위치 2: D
+                &trans                  // 모드 전환 스위치 (이 레이어에 있을 때 동작 유지)
+                &cycle_keyboard_oled 5000  // 순환 스위치: 키보드 레이어 순환 + OLED 켜고 5초 뒤 끄기
             >;
         };
-
-        // --- 5. Q, W 키보드 모드 (Layer 5) ---
+        
+        // layer 5: 키보드 Q/W
         keyboard_layer_1 {
             bindings = <
-                &kp Q               // 풋스위치 1: Q
-                &kp W               // 풋스위치 2: W
-                &trans              // 메인 모드 스위치
-                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
+                &kp Q                   // 풋스위치 1: Q
+                &kp W                   // 풋스위치 2: W
+                &trans                  // 모드 전환 스위치
+                &cycle_keyboard_oled 5000  // 순환 스위치
             >;
         };
-
-        // --- 6. T, Y 키보드 모드 (Layer 6) ---
+        
+        // layer 6: 키보드 T/Y
         keyboard_layer_2 {
             bindings = <
-                &kp T               // 풋스위치 1: T
-                &kp Y               // 풋스위치 2: Y
-                &trans              // 메인 모드 스위치
-                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
+                &kp T                   // 풋스위치 1: T
+                &kp Y                   // 풋스위치 2: Y
+                &trans                  // 모드 전환 스위치
+                &cycle_keyboard_oled 5000  // 순환 스위치
             >;
         };
-
-        // --- 7. Z, X 키보드 모드 (Layer 7) ---
+        
+        // layer 7: 키보드 Z/X
         keyboard_layer_3 {
             bindings = <
-                &kp Z               // 풋스위치 1: Z
-                &kp X               // 풋스위치 2: X
-                &trans              // 메인 모드 스위치
-                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
+                &kp Z                   // 풋스위치 1: Z
+                &kp X                   // 풋스위치 2: X
+                &trans                  // 모드 전환 스위치
+                &cycle_keyboard_oled 5000  // 순환 스위치
             >;
         };
     };
 
-    // --- 콤보 설정 (블루투스 페어링 초기화) ---
-    // (이전과 동일)
+    // 콤보 설정 (풋스위치 1,2 동시 누르면 블루투스 페어링 초기화)
     combos {
         compatible = "zmk,combos";
         combo_settings {
-            timeout-ms = <50>;
-            key-positions = <0 1>; // 풋스위치 1번과 2번
-            bindings = <&bt BT_CLR>; // 동시에 누르면 블루투스 페어링 정보 초기화
+            timeout-ms = <50>; // 50ms 이내에 두 키 눌러야 인식
+            key-positions = <0 1>; // kscan input-gpios의 첫 번째(0)와 두 번째(1) 핀
+            bindings = <&bt BT_CLR>; // 블루투스 페어링 정보 초기화
         };
     };
+    
+    // OLED에 표시될 레이어 이름 정의
+    zmk,layer-names = "마우스-기본", "마우스-반전", "마우스-중앙", "마우스-특수", 
+                      "KB-AD", "KB-QW", "KB-TY", "KB-ZX";
 };
