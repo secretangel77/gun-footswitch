@@ -21,12 +21,11 @@
     };
 };
 
-&i2c0 { // Nice!Nano v2의 I2C0 버스 설정 (SSD1306 OLED 연결)
-    status = "okay"; // I2C 버스 사용 활성화
-    ssd1306: ssd1306@3c { // SSD1306 OLED 정의 (주소 0x3c)
+&i2c0 {
+    status = "okay";
+    ssd1306: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
-        label = "DISPLAY";
         width = <128>;
         height = <64>;
         segment-offset = <0>;
@@ -37,5 +36,7 @@
         com-invdir;
         com-sequential;
         prechargep = <0x22>;
+    };
+};
     };
 };
