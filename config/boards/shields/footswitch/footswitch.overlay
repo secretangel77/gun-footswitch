@@ -1,7 +1,6 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,display = &ssd1306; // OLED 디스플레이 활성화
     };
 
     kscan0: kscan {
