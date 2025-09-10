@@ -20,5 +20,26 @@
         output-ohms = <2000000>;
         full-ohms = <2806000>;
     };
-};
+    // --- 백라이트 LED 출력 핀 설정 ---
+    gpio_outputs {
+        compatible = "zmk,behavior-output-gpios";
+        status = "okay";
 
+        led_1: led_1 {
+            gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>; // 첫 번째 LED (D9/P1.06)
+            label = "LED_1";
+        };
+        led_2: led_2 {
+            gpios = <&gpio1 11 GPIO_ACTIVE_HIGH>; // 두 번째 LED (D12/P1.11)
+            label = "LED_2";
+        };
+        led_3: led_3 {
+            gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>; // 세 번째 LED (D13/P1.13)
+            label = "LED_3";
+        };
+        led_4: led_4 {
+            gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>; // 네 번째 LED (D14/P1.15)
+            label = "LED_4";
+        };
+    };
+};
