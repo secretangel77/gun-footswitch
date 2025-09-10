@@ -6,193 +6,124 @@
 
 / {
     behaviors {
-        // 모든 LED를 끄는 매크로
-        led_off_all: led_off_all {
+        // --- 마우스 모드 내 레이어 순환 매크로 ---
+        // 이 매크로를 누르면 layer 0 → 1 → 2 → 3 → 0 순으로 마우스 레이어를 순환시켜줘.
+        cycle_mouse: cycle_mouse {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <
-                &out led_1 0
-                &out led_2 0
-                &out led_3 0
-                &out led_4 0
-            >;
+            // macro_tap은 한 번 누를 때 동작
+            // tog는 현재 활성화된 레이어를 끄고, 다음 레이어를 활성화하는 역할
+            bindings = <&macro_tap &tog 1 &tog 2 &tog 3 &tog 0>;
         };
 
-        // --- 마우스 모드 (레이어 0-3) 전환 매크로 + LED 제어 ---
-        toggle_mouse_layer0: toggle_mouse_layer0 {
+        // --- 키보드 모드 내 레이어 순환 매크로 ---
+        // 이 매크로를 누르면 layer 4 → 5 → 6 → 7 → 4 순으로 키보드 레이어를 순환시켜줘.
+        cycle_keyboard: cycle_keyboard {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out led_1 1 &tog 0>;
-        };
-        toggle_mouse_layer1: toggle_mouse_layer1 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&led_off_all &out led_2 1 &tog 1>;
-        };
-        toggle_mouse_layer2: toggle_mouse_layer2 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&led_off_all &out led_3 1 &tog 2>;
-        };
-        toggle_mouse_layer3: toggle_mouse_layer3 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&led_off_all &out led_4 1 &tog 3>;
-        };
-
-        // --- 키보드 모드 (레이어 4-7) 전환 매크로 + LED 제어 ---
-        toggle_keyboard_layer4: toggle_keyboard_layer4 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&led_off_all &out led_1 1 &tog 4>;
-        };
-        toggle_keyboard_layer5: toggle_keyboard_layer5 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&led_off_all &out led_2 1 &tog 5>;
-        };
-        toggle_keyboard_layer6: toggle_keyboard_layer6 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&led_off_all &out led_3 1 &tog 6>;
-        };
-        toggle_keyboard_layer7: toggle_keyboard_layer7 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&led_off_all &out led_4 1 &tog 7>;
-        };
-
-        // --- 레이어 순환 매크로 ---
-        cycle_layers_macro: cycle_layers_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            macro-taps = <&cycle_layers_conditional>;
-        };
-
-        cycle_layers_conditional: cycle_layers_conditional {
-            compatible = "zmk,behavior-conditional-layer-macro";
-            #binding-cells = <0>;
-            layers = <0 1 2 3 4 5 6 7>;
-            bindings = <
-                &toggle_mouse_layer1
-                &toggle_mouse_layer2
-                &toggle_mouse_layer3
-                &toggle_mouse_layer0
-                &toggle_keyboard_layer5
-                &toggle_keyboard_layer6
-                &toggle_keyboard_layer7
-                &toggle_keyboard_layer4
-            >;
-        };
-
-        // --- 모드 전환 매크로 ---
-        mode_switch_macro: mode_switch_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            macro-taps = <&mode_switch_conditional>;
-        };
-
-        mode_switch_conditional: mode_switch_conditional {
-            compatible = "zmk,behavior-conditional-layer-macro";
-            #binding-cells = <0>;
-            layers = <0 1 2 3 4 5 6 7>;
-            bindings = <
-                &toggle_keyboard_layer4
-                &toggle_keyboard_layer4
-                &toggle_keyboard_layer4
-                &toggle_keyboard_layer4
-                &toggle_mouse_layer0
-                &toggle_mouse_layer0
-                &toggle_mouse_layer0
-                &toggle_mouse_layer0
-            >;
+            bindings = <&macro_tap &tog 5 &tog 6 &tog 7 &tog 4>;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
+        // --- 0. 기본 마우스 모드 (Layer 0) ---
+        // 슬라이드/로커 스위치가 OFF일 때 (기본)
         default_layer {
             bindings = <
-                &mkp LCLK
-                &mkp RCLK
-                &mode_switch_macro
-                &cycle_layers_macro
+                &mkp LCLK           // 풋스위치 1: 좌클릭
+                &mkp RCLK           // 풋스위치 2: 우클릭
+                &mo 4               // 메인 모드 스위치 (gpio0 17): 누르면 키보드 모드(Layer 4)로 전환
+                &cycle_mouse        // 새로운 순환 스위치 (gpio0 20): 마우스 레이어 순환
             >;
         };
 
+        // --- 1. 반전 마우스 모드 (Layer 1) ---
         mouse_layer_1 {
             bindings = <
-                &mkp RCLK
-                &mkp LCLK
-                &mode_switch_macro
-                &cycle_layers_macro
+                &mkp RCLK           // 풋스위치 1: 우클릭
+                &mkp LCLK           // 풋스위치 2: 좌클릭
+                &mo 4               // 메인 모드 스위치: 누르면 키보드 모드(Layer 4)로 전환
+                &cycle_mouse        // 새로운 순환 스위치: 마우스 레이어 순환
             >;
         };
 
+        // --- 2. 중간+좌 마우스 모드 (Layer 2) ---
         mouse_layer_2 {
             bindings = <
-                &mkp MCLK
-                &mkp LCLK
-                &mode_switch_macro
-                &cycle_layers_macro
+                &mkp MCLK           // 풋스위치 1: 중간클릭
+                &mkp LCLK           // 풋스위치 2: 좌클릭
+                &mo 4               // 메인 모드 스위치: 누르면 키보드 모드(Layer 4)로 전환
+                &cycle_mouse        // 새로운 순환 스위치: 마우스 레이어 순환
             >;
         };
 
+        // --- 3. 좌+중간 마우스 모드 (Layer 3) ---
         mouse_layer_3 {
             bindings = <
-                &mkp LCLK
-                &mkp MCLK
-                &mode_switch_macro
-                &cycle_layers_macro
+                &mkp LCLK           // 풋스위치 1: 좌클릭
+                &mkp MCLK           // 풋스위치 2: 중간클릭
+                &mo 4               // 메인 모드 스위치: 누르면 키보드 모드(Layer 4)로 전환
+                &cycle_mouse        // 새로운 순환 스위치: 마우스 레이어 순환
             >;
         };
 
+        // --- 4. 기본 키보드 모드 (Layer 4) ---
+        // 슬라이드/로커 스위치가 ON일 때 (메인 스위치 누른 상태)
         keyboard_base {
             bindings = <
-                &kp A
-                &kp D
-                &mode_switch_macro
-                &cycle_layers_macro
+                &kp A               // 풋스위치 1: A
+                &kp D               // 풋스위치 2: D
+                &trans              // 메인 모드 스위치: &mo에 의해 이미 이 레이어에 있으니 &trans로 통과
+                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
             >;
         };
 
+        // --- 5. Q, W 키보드 모드 (Layer 5) ---
         keyboard_layer_1 {
             bindings = <
-                &kp Q
-                &kp W
-                &mode_switch_macro
-                &cycle_layers_macro
+                &kp Q               // 풋스위치 1: Q
+                &kp W               // 풋스위치 2: W
+                &trans              // 메인 모드 스위치
+                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
             >;
         };
 
+        // --- 6. T, Y 키보드 모드 (Layer 6) ---
         keyboard_layer_2 {
             bindings = <
-                &kp T
-                &kp Y
-                &mode_switch_macro
-                &cycle_layers_macro
+                &kp T               // 풋스위치 1: T
+                &kp Y               // 풋스위치 2: Y
+                &trans              // 메인 모드 스위치
+                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
             >;
         };
 
+        // --- 7. Z, X 키보드 모드 (Layer 7) ---
         keyboard_layer_3 {
             bindings = <
-                &kp Z
-                &kp X
-                &mode_switch_macro
-                &cycle_layers_macro
+                &kp Z               // 풋스위치 1: Z
+                &kp X               // 풋스위치 2: X
+                &trans              // 메인 모드 스위치
+                &cycle_keyboard     // 새로운 순환 스위치: 키보드 레이어 순환
             >;
         };
     };
 
+    // --- 콤보 설정 (블루투스 페어링 초기화) ---
+    // (이전과 동일)
     combos {
         compatible = "zmk,combos";
-
-        combo_bt_clear {
+        combo_settings {
             timeout-ms = <50>;
-            key-positions = <0 1>;
-            bindings = <&bt BT_CLR>;
+            key-positions = <0 1>; // 풋스위치 1번과 2번
+            bindings = <&bt BT_CLR>; // 동시에 누르면 블루투스 페어링 정보 초기화
         };
+    };
+    zmk,layer-names = "MB-LR", "MB-RL", "MB-ML", "MB-MR", 
+                      "KB-AD", "KB-QW", "KB-TY", "KB-ZX";
+};
     };
 
     zmk,layer-names = "마우스-기본", "마우스-반전", "마우스-중앙", "마우스-특수",
