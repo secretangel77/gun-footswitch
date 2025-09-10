@@ -20,16 +20,20 @@
     };
 };
 
-/* SSD1306 OLED 설정 (I2C0 사용) */
+/* I2C0 SSD1306 OLED 연결 */
 &i2c0 {
+    compatible = "nordic,nrf-twi";
     status = "okay";
+    sda-pin = <32>;   /* P1.00 → SDA (GPIO 번호로 32) */
+    scl-pin = <11>;   /* P0.11 → SCL */
+    clock-frequency = <I2C_BITRATE_STANDARD>;
 
     ssd1306: ssd1306@3c {
-        compatible = "solomon,ssd1306fb";
-        reg = <0x3c>;       // I2C 주소 (대부분 0x3C)
+        compatible = "solomon,ssd1306fb-i2c";
+        reg = <0x3c>;       /* SSD1306 I²C 주소 */
         label = "SSD1306";
         width = <128>;
         height = <64>;
+        segment-offset = <0>;  /* 필수 속성 */
     };
 };
-
