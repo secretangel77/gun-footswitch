@@ -19,39 +19,3 @@
         full-ohms = <2806000>;
     };
 };
-
-/* --- pinctrl 블록: I2C0 핀 지정 --- */
-&pinctrl {
-    i2c0_default: i2c0_default {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 1, 0)>,  /* SDA = P1.00 */
-                    <NRF_PSEL(TWIM_SCL, 0, 11)>; /* SCL = P0.11 */
-        };
-    };
-
-    i2c0_sleep: i2c0_sleep {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 1, 0)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 11)>;
-        };
-    };
-};
-
-/* --- I2C0 SSD1306 OLED 연결 --- */
-&i2c0 {
-    compatible = "nordic,nrf-twi";
-    status = "okay";
-    pinctrl-0 = <&i2c0_default>;
-    pinctrl-1 = <&i2c0_sleep>;
-    pinctrl-names = "default", "sleep";
-    clock-frequency = <I2C_BITRATE_STANDARD>;
-
-    ssd1306: ssd1306@3c {
-        compatible = "solomon,ssd1306fb-i2c";
-        reg = <0x3c>;       /* SSD1306 I²C 주소 */
-        label = "SSD1306";
-        width = <128>;
-        height = <64>;
-        segment-offset = <0>;
-    };
-};
