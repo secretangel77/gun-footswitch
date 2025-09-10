@@ -21,24 +21,15 @@
         full-ohms = <(2000000 + 806000)>;
     };
     
-    // LED 핀 설정 추가
+    // LED 핀 설정 (하나만!)
     leds {
         compatible = "gpio-leds";
-        led_1: led_1 {
-            gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>;
-            label = "LED 1";
-        };
-        led_2: led_2 {
-            gpios = <&gpio1 11 GPIO_ACTIVE_HIGH>;
-            label = "LED 2";
-        };
-        led_3: led_3 {
-            gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
-            label = "LED 3";
-        };
-        led_4: led_4 {
-            gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>;
-            label = "LED 4";
+        status = "okay"; // 꼭 필요해!
+
+        indicator_led: indicator_led {
+            gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>; // D9 (P1.06) 핀에 LED 연결
+            label = "Indicator LED";
+            default-state = "off"; // 기본적으로 꺼진 상태
         };
     };
 };
