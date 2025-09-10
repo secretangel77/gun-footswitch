@@ -1,6 +1,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
+        zmk,underglow = &led_strip;
     };
 
     kscan0: kscan {
@@ -8,7 +9,7 @@
         input-gpios =
             <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 1
             <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2
-            <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 모드 전환 스위치 (푸시락 스위치)
+            <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 모드 전환 스위치
             <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치
     };
 
@@ -18,6 +19,7 @@
         output-ohms = <2000000>;
         full-ohms = <2806000>;
     };
+
     led_strip: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
         chain-length = <4>; // 4개 LED 스트립
