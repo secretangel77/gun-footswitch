@@ -20,10 +20,5 @@
         output-ohms = <2000000>;
         full-ohms = <2806000>;
     };
-led_strip: led_strip {
-    compatible = "zmk,led-strip";
-    chain-length = <4>; // LED 개수
-    gpios = <&gpio1 8 0>; // 핀 번호 (보통 P1.08 사용)
-  };
 };
 
