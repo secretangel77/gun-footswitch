@@ -26,10 +26,9 @@
         compatible = "gpio-leds";
         status = "okay"; // 꼭 필요해!
 
-        indicator_led: indicator_led {
-            gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>; // D9 (P1.06) 핀에 LED 연결
-            label = "Indicator LED";
-            default-state = "off"; // 기본적으로 꺼진 상태
-        };
+indicator_led: indicator_led {
+    gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>; // D9 (P1.06) 핀에 LED 연결
+    label = "Indicator LED";
+};
     };
 };
