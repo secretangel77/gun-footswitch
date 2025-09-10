@@ -2,7 +2,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/mouse.h>
-#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/output.h>
 
 / {
     behaviors {
@@ -11,55 +11,61 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <
-                &out LED_1 OFF &out LED_2 OFF &out LED_3 OFF &out LED_4 OFF
+                &out LED_1 OFF
+                &out LED_2 OFF
+                &out LED_3 OFF
+                &out LED_4 OFF
             >;
         };
 
         // --- 마우스 모드 (레이어 0-3) 전환 매크로 + LED 제어 ---
+        // 각 레이어 진입 시 해당 LED를 켜고 나머지 끄기
         toggle_mouse_layer0: toggle_mouse_layer0 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_1 ON &tog 0>;
+            bindings = <&led_off_all &out LED_1 ON &tog 0>; // LED 1 켜고 레이어 0으로
         };
         toggle_mouse_layer1: toggle_mouse_layer1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_2 ON &tog 1>;
+            bindings = <&led_off_all &out LED_2 ON &tog 1>; // LED 2 켜고 레이어 1으로
         };
         toggle_mouse_layer2: toggle_mouse_layer2 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_3 ON &tog 2>;
+            bindings = <&led_off_all &out LED_3 ON &tog 2>; // LED 3 켜고 레이어 2으로
         };
         toggle_mouse_layer3: toggle_mouse_layer3 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_4 ON &tog 3>;
+            bindings = <&led_off_all &out LED_4 ON &tog 3>; // LED 4 켜고 레이어 3으로
         };
 
         // --- 키보드 모드 (레이어 4-7) 전환 매크로 + LED 제어 ---
+        // 각 레이어 진입 시 해당 LED를 켜고 나머지 끄기 (마우스와 동일한 LED 번호를 사용해서 레이어 그룹 표시)
         toggle_keyboard_layer4: toggle_keyboard_layer4 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_1 ON &tog 4>;
+            bindings = <&led_off_all &out LED_1 ON &tog 4>; // LED 1 켜고 레이어 4로
         };
         toggle_keyboard_layer5: toggle_keyboard_layer5 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_2 ON &tog 5>;
+            bindings = <&led_off_all &out LED_2 ON &tog 5>; // LED 2 켜고 레이어 5로
         };
         toggle_keyboard_layer6: toggle_keyboard_layer6 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_3 ON &tog 6>;
+            bindings = <&led_off_all &out LED_3 ON &tog 6>; // LED 3 켜고 레이어 6로
         };
         toggle_keyboard_layer7: toggle_keyboard_layer7 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&led_off_all &out LED_4 ON &tog 7>;
+            bindings = <&led_off_all &out LED_4 ON &tog 7>; // LED 4 켜고 레이어 7로
         };
 
         // --- 레이어 순환 스위치 매크로 (P0.20) ---
+        // 현재 레이어에 따라 다음 레이어로 순환하고, 해당 LED 제어 매크로 호출
         cycle_layers_macro: cycle_layers_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -69,12 +75,15 @@
         cycle_layers_conditional: cycle_layers_conditional {
             compatible = "zmk,behavior-conditional-layer-macro";
             #binding-cells = <0>;
+            // 모든 레이어를 감지
             layers = <0 1 2 3 4 5 6 7>;
             bindings = <
+                // 마우스 레이어 순환: 0->1(LED2), 1->2(LED3), 2->3(LED4), 3->0(LED1)
                 &toggle_mouse_layer1,
                 &toggle_mouse_layer2,
                 &toggle_mouse_layer3,
                 &toggle_mouse_layer0,
+                // 키보드 레이어 순환: 4->5(LED2), 5->6(LED3), 6->7(LED4), 7->4(LED1)
                 &toggle_keyboard_layer5,
                 &toggle_keyboard_layer6,
                 &toggle_keyboard_layer7,
@@ -83,6 +92,7 @@
         };
 
         // --- 모드 전환 스위치 매크로 (P0.17) ---
+        // 현재 모드(마우스/키보드)에 따라 반대 모드의 기본 레이어로 전환하고 LED 제어
         mode_switch_macro: mode_switch_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -94,14 +104,16 @@
             #binding-cells = <0>;
             layers = <0 1 2 3 4 5 6 7>;
             bindings = <
-                &toggle_keyboard_layer4, // layer 0에서 -> 키보드 기본(4)
-                &toggle_keyboard_layer4, // layer 1에서 -> 키보드 기본(4)
-                &toggle_keyboard_layer4, // layer 2에서 -> 키보드 기본(4)
-                &toggle_keyboard_layer4, // layer 3에서 -> 키보드 기본(4)
-                &toggle_mouse_layer0,    // layer 4에서 -> 마우스 기본(0)
-                &toggle_mouse_layer0,    // layer 5에서 -> 마우스 기본(0)
-                &toggle_mouse_layer0,    // layer 6에서 -> 마우스 기본(0)
-                &toggle_mouse_layer0     // layer 7에서 -> 마우스 기본(0)
+                // 마우스 레이어 (0-3)에 있으면 -> 키보드 기본 (레이어 4, LED 1)
+                &toggle_keyboard_layer4, // layer 0
+                &toggle_keyboard_layer4, // layer 1
+                &toggle_keyboard_layer4, // layer 2
+                &toggle_keyboard_layer4, // layer 3
+                // 키보드 레이어 (4-7)에 있으면 -> 마우스 기본 (레이어 0, LED 1)
+                &toggle_mouse_layer0, // layer 4
+                &toggle_mouse_layer0, // layer 5
+                &toggle_mouse_layer0, // layer 6
+                &toggle_mouse_layer0  // layer 7
             >;
         };
     };
@@ -113,32 +125,37 @@
         // layer 0: 마우스 기본 (좌클릭/우클릭)
         default_layer {
             bindings = <
-                &mkp LCLK             // 풋스위치 1: 좌클릭
-                &mkp RCLK             // 풋스위치 2: 우클릭
-                &mode_switch_macro    // 모드 전환 스위치 (P0.17)
-                &cycle_layers_macro   // 레이어 순환 스위치 (P0.20)
+                &mkp LCLK       // 풋스위치 1: 좌클릭
+                &mkp RCLK       // 풋스위치 2: 우클릭
+                &mode_switch_macro // 모드 전환 스위치 (P0.17)
+                &cycle_layers_macro // 레이어 순환 스위치 (P0.20)
             >;
+            // 시작 시 LED 1 켜기 (초기 상태 설정 - 필요 시)
+            // ZMK는 기본적으로 &out OFF로 초기화되므로, 수동으로 켜는 코드는 첫 레이어 진입시 추가되어야 함
+            // 만약 부팅 시 항상 Layer 0 (LED 1)이 켜지게 하려면, `default_layer`에 `&out LED_1 ON` 추가하는 식으로 조절 가능
+            // (주의: layer 0은 default라서 `&mo 0`이나 `&tog 0` 같은걸 쓰면 안됨. ZMK는 부팅시 layer 0부터 시작)
         };
         
         // layer 1: 마우스 반전 (우클릭/좌클릭)
         mouse_layer_1 {
             bindings = <
-                &mkp RCLK             // 풋스위치 1: 우클릭
-                &mkp LCLK             // 풋스위치 2: 좌클릭
-                &mode_switch_macro    // 모드 전환 스위치
-                &cycle_layers_macro   // 레이어 순환 스위치
+                &mkp RCLK       // 풋스위치 1: 우클릭
+                &mkp LCLK       // 풋스위치 2: 좌클릭
+                &mode_switch_macro
+                &cycle_layers_macro
             >;
         };
         
         // layer 2: 마우스 중간 + 좌클릭 (중간클릭/좌클릭)
         mouse_layer_2 {
             bindings = <
-                &mkp MCLK             // 풋스위치 1: 중간클릭
-                &mkp LCLK             // 풋스위치 2: 좌클릭
-                &mode_switch_macro    // 모드 전환 스위치
-                &cycle_layers_macro   // 레이어 순환 스위치
+                &mkp MCLK       // 풋스위치 1: 중간클릭
+                &mkp LCLK       // 풋스위치 2: 좌클릭
+                &mode_switch_macro
+                &cycle_layers_macro
             >;
         };
+        
         // layer 3: 마우스 좌클릭 + 중간 (좌클릭/중간클릭)
         mouse_layer_3 {
             bindings = <
@@ -204,4 +221,4 @@
     // OLED는 없지만 내부 참조용 레이어 이름은 유지
     zmk,layer-names = "마우스-기본", "마우스-반전", "마우스-중앙", "마우스-특수", 
                       "KB-AD", "KB-QW", "KB-TY", "KB-ZX";
-};        
+};
