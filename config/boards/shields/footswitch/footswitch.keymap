@@ -11,7 +11,7 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <
-                &out OUT_OFF &out OUT_OFF &out OUT_OFF &out OUT_OFF
+                &out LED_1 OFF &out LED_2 OFF &out LED_3 OFF &out LED_4 OFF
             >;
         };
 
