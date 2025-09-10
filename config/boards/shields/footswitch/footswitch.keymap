@@ -124,8 +124,3 @@
     zmk,layer-names = "MB-LR", "MB-RL", "MB-ML", "MB-MR", 
                       "KB-AD", "KB-QW", "KB-TY", "KB-ZX";
 };
-    };
-
-    zmk,layer-names = "마우스-기본", "마우스-반전", "마우스-중앙", "마우스-특수",
-                      "KB-AD", "KB-QW", "KB-TY", "KB-ZX";
-};
