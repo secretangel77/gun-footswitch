@@ -131,16 +131,15 @@
             compatible = "zmk,behavior-conditional-layer-macro";
             #binding-cells = <0>;
             layers = <0 1 2 3 4 5 6 7>;
-            bindings = <
-                &cycle_mouse,
-                &cycle_mouse_2,
-                &cycle_mouse_3,
-                &cycle_mouse_0,
-                &cycle_keyboard,
-                &cycle_keyboard_2,
-                &cycle_keyboard_3,
-                &cycle_keyboard_0
-            >;
+            bindings = 
+                <&cycle_mouse>,
+                <&cycle_mouse_2>,
+                <&cycle_mouse_3>,
+                <&cycle_mouse_0>,
+                <&cycle_keyboard>,
+                <&cycle_keyboard_2>,
+                <&cycle_keyboard_3>,
+                <&cycle_keyboard_0>;
         };
 
         // 모드 전환 매크로 (마우스 <-> 키보드)
@@ -154,16 +153,16 @@
             compatible = "zmk,behavior-conditional-layer-macro";
             #binding-cells = <0>;
             layers = <0 1 2 3 4 5 6 7>;
-            bindings = <
-                &macro_tap &tog 4 &led_layer4,  // 레이어 0 -> 4
-                &macro_tap &tog 4 &led_layer4,  // 레이어 1 -> 4
-                &macro_tap &tog 4 &led_layer4,  // 레이어 2 -> 4
-                &macro_tap &tog 4 &led_layer4,  // 레이어 3 -> 4
-                &macro_tap &tog 0 &led_layer0,  // 레이어 4 -> 0
-                &macro_tap &tog 0 &led_layer0,  // 레이어 5 -> 0
-                &macro_tap &tog 0 &led_layer0,  // 레이어 6 -> 0
-                &macro_tap &tog 0 &led_layer0   // 레이어 7 -> 0
-            >;
+            bindings = 
+                <&macro_tap &tog 4 &led_layer4>,  // 레이어 0 -> 4
+                <&macro_tap &tog 4 &led_layer4>,  // 레이어 1 -> 4
+                <&macro_tap &tog 4 &led_layer4>,  // 레이어 2 -> 4
+                <&macro_tap &tog 4 &led_layer4>,  // 레이어 3 -> 4
+                <&macro_tap &tog 0 &led_layer0>,  // 레이어 4 -> 0
+                <&macro_tap &tog 0 &led_layer0>,  // 레이어 5 -> 0
+                <&macro_tap &tog 0 &led_layer0>,  // 레이어 6 -> 0
+                <&macro_tap &tog 0 &led_layer0>;   // 레이어 7 -> 0
+
         };
     };
 
