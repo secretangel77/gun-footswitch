@@ -56,10 +56,10 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = 
-                <&gpio_set_high 1 6>, &gpio_set_low 1 6>, // 1st blink
-                <&gpio_set_high 1 6>, &gpio_set_low 1 6>, // 2nd blink
-                <&gpio_set_high 1 6>, &gpio_set_low 1 6>, // 3rd blink
-                <&gpio_set_high 1 6>, &gpio_set_low 1 6>;  // 4th blink
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>, // 1st blink
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>, // 2nd blink
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>, // 3rd blink
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>;  // 4th blink
 
         };
 
