@@ -130,10 +130,9 @@
             layers = <0 1 2 3>;
             bindings = 
                 <&to_layer_1>,
-                &to_layer_2,
-                &to_layer_3,
-                &to_layer_0
-            >;
+                <&to_layer_2>,
+                <&to_layer_3>,
+                <&to_layer_0>;
         };
         
         // 키보드 모드 레이어 순환 매크로
@@ -147,12 +146,11 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             layers = <4 5 6 7>;
-            bindings = <
-                &to_layer_5,
-                &to_layer_6,
-                &to_layer_7,
-                &to_layer_4
-            >;
+            bindings = 
+                <&to_layer_5>,
+                <&to_layer_6>,
+                <&to_layer_7>,
+                <&to_layer_4>;
         };
         
         // 레이어 순환 스위치 매크로 (모드에 따라 다른 순환 매크로 호출)
