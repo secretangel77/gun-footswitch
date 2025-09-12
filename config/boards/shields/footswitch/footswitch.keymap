@@ -128,8 +128,8 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             layers = <0 1 2 3>;
-            bindings = <
-                &to_layer_1,
+            bindings = 
+                <&to_layer_1>,
                 &to_layer_2,
                 &to_layer_3,
                 &to_layer_0
