@@ -21,10 +21,10 @@
             label = "BLINK_1";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <
-                &gpio_set_high 1 6, // ON
-                &gpio_set_low 1 6   // OFF (매우 짧은 순간만 ON)
-            >;
+            bindings = 
+                <&gpio_set_high 1 6>, // ON
+                <&gpio_set_low 1 6>;   // OFF (매우 짧은 순간만 ON)
+
         };
 
         // LED를 2번 깜빡이는 매크로
@@ -32,10 +32,10 @@
             label = "BLINK_2";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <
-                &gpio_set_high 1 6, &gpio_set_low 1 6, // 1st blink
-                &gpio_set_high 1 6, &gpio_set_low 1 6  // 2nd blink
-            >;
+            bindings = 
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>, // 1st blink
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>;  // 2nd blink
+
         };
         
         // LED를 3번 깜빡이는 매크로
@@ -43,11 +43,11 @@
             label = "BLINK_3";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <
-                &gpio_set_high 1 6, &gpio_set_low 1 6, // 1st blink
-                &gpio_set_high 1 6, &gpio_set_low 1 6, // 2nd blink
-                &gpio_set_high 1 6, &gpio_set_low 1 6  // 3rd blink
-            >;
+            bindings = 
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>, // 1st blink
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>, // 2nd blink
+                <&gpio_set_high 1 6>, <&gpio_set_low 1 6>;  // 3rd blink
+
         };
 
         // LED를 4번 깜빡이는 매크로
@@ -55,12 +55,12 @@
             label = "BLINK_4";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <
-                &gpio_set_high 1 6, &gpio_set_low 1 6, // 1st blink
-                &gpio_set_high 1 6, &gpio_set_low 1 6, // 2nd blink
-                &gpio_set_high 1 6, &gpio_set_low 1 6, // 3rd blink
-                &gpio_set_high 1 6, &gpio_set_low 1 6  // 4th blink
-            >;
+            bindings = 
+                <&gpio_set_high 1 6>, &gpio_set_low 1 6>, // 1st blink
+                <&gpio_set_high 1 6>, &gpio_set_low 1 6>, // 2nd blink
+                <&gpio_set_high 1 6>, &gpio_set_low 1 6>, // 3rd blink
+                <&gpio_set_high 1 6>, &gpio_set_low 1 6>;  // 4th blink
+
         };
 
         // --- 레이어 전환 매크로 (LED 깜빡임 추가) ---
