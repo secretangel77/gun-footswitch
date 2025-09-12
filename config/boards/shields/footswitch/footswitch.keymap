@@ -125,7 +125,7 @@
         };
         
         cycle_mouse_conditional: cycle_mouse_conditional {
-            compatible = "zmk,behavior-conditional-layer-macro";
+            compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             layers = <0 1 2 3>;
             bindings = <
@@ -144,7 +144,7 @@
         };
         
         cycle_keyboard_conditional: cycle_keyboard_conditional {
-            compatible = "zmk,behavior-conditional-layer-macro";
+            compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             layers = <4 5 6 7>;
             bindings = <
