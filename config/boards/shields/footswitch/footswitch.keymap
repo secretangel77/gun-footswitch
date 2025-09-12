@@ -172,7 +172,7 @@
                 <&cycle_keyboard_layers>,
                 <&cycle_keyboard_layers>,
                 <&cycle_keyboard_layers>,
-                <&cycle_keyboard_layers.;
+                <&cycle_keyboard_layers>;
         };
         
         // 모드 전환 매크로 (마우스 <-> 키보드)
