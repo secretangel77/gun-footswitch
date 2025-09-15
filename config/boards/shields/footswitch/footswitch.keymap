@@ -67,9 +67,9 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings =
-                <&macro_if &macro_eq LAYER 0 &to_mouse_1>
-                <&macro_else_if &macro_eq LAYER 1 &to_mouse_2>
-                <&macro_else_if &macro_eq LAYER 2 &to_mouse_3>
+                <&macro_if &macro_eq LAYER 0 &to_mouse_1>,
+                <&macro_else_if &macro_eq LAYER 1 &to_mouse_2>,
+                <&macro_else_if &macro_eq LAYER 2 &to_mouse_3>,
                 <&macro_else_if &macro_eq LAYER 3 &to_mouse_0>;
         };
         
@@ -85,9 +85,9 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings =
-                <&macro_if &macro_eq LAYER 4 &to_keyboard_5>
-                <&macro_else_if &macro_eq LAYER 5 &to_keyboard_6>
-                <&macro_else_if &macro_eq LAYER 6 &to_keyboard_7>
+                <&macro_if &macro_eq LAYER 4 &to_keyboard_5>,
+                <&macro_else_if &macro_eq LAYER 5 &to_keyboard_6>,
+                <&macro_else_if &macro_eq LAYER 6 &to_keyboard_7>,
                 <&macro_else_if &macro_eq LAYER 7 &to_keyboard_4>;
         };
         
