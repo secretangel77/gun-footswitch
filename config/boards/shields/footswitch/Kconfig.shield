@@ -1,12 +1,2 @@
 config SHIELD_FOOTSWITCH
     def_bool $(shields_list_contains,footswitch)
-
-if ZMK_BACKLIGHT
-
-config PWM
-    default y
-
-config LED_PWM
-    default y
-
-endif # ZMK_BACKLIGHT
