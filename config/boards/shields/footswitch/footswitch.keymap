@@ -4,6 +4,9 @@
 #include <dt-bindings/zmk/mouse.h>
 
 / {
+    chosen {
+        zmk,backlight = &backlight;
+    };
     behaviors {
         // 마우스 모드 순환 매크로 - 레이어별로 다르게 동작
         m0_cycle: m0_cycle {
