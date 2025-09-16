@@ -1,2 +1,8 @@
 config SHIELD_FOOTSWITCH
     def_bool $(shields_list_contains,footswitch)
+    select DISPLAY if SHIELD_FOOTSWITCH_OLED
+
+config SHIELD_FOOTSWITCH_OLED
+    def_bool $(shields_list_contains,footswitch_oled)
+    select SSD1306
+    select I2C
