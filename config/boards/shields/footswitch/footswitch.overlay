@@ -22,6 +22,7 @@
     chosen {
         zmk,kscan = &kscan0;
         zephyr,display = &oled_128x32;
+        zmk,battery = &vbatt;
     };
 
     kscan0: kscan {
@@ -37,6 +38,7 @@
     // 배터리 모니터링
     vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
+        label = "BATTERY";
         io-channels = <&adc 2>;
         output-ohms = <2000000>;
         full-ohms = <(2000000 + 806000)>;
