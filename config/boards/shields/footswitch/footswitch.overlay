@@ -1,7 +1,7 @@
 &pro_micro_i2c {
     status = "okay";
 
-    oled_128x32: ssd1306@3c {
+    oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         width = <128>;
@@ -21,7 +21,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zephyr,display = &oled_128x32;
+        zephyr,display = &oled;
         zmk,battery = &vbatt;
     };
 
