@@ -31,8 +31,8 @@
         input-gpios =
             <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 1 (P0.6)
             <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2 (P0.8)
-            <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 슬라이드 스위치 (P0.17)
-            <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치
+            <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 슬라이드 스위치 (P0.17)
+            <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치
     };
 
     // 배터리 모니터링
