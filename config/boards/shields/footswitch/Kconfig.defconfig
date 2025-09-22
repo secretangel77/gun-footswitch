@@ -1,0 +1,11 @@
+if SHIELD_FOOTSWITCH
+
+if ZMK_DISPLAY
+
+config I2C
+    default y
+
+config SSD1306
+    default y
+endif
+endif
