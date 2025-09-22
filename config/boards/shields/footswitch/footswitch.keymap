@@ -55,6 +55,19 @@
             #binding-cells = <0>;
             bindings = <&macro_tap &to 4>;  // 레이어 7 → 4
         };
+
+        // 모드 전환용 매크로 (푸시락 스위치용)
+        to_mouse: to_mouse {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0>;  // 강제로 마우스 모드로 전환
+        };
+        
+        to_keyboard: to_keyboard {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 4>;  // 강제로 키보드 모드로 전환
+        };
     };
 
     keymap {
@@ -65,7 +78,7 @@
             bindings = <
                 &mkp LCLK           // 풋스위치 1: 좌클릭
                 &mkp RCLK           // 풋스위치 2: 우클릭
-                &mo 4               // 모드 전환 스위치: 누르는 동안만 키보드 모드
+                &to_keyboard               // 모드 전환 스위치: 누르는 동안만 키보드 모드
                 &m0_cycle           // 레이어 순환: 레이어 1로 이동
             >;
         };
@@ -75,7 +88,7 @@
             bindings = <
                 &mkp RCLK           // 풋스위치 1: 우클릭
                 &mkp LCLK           // 풋스위치 2: 좌클릭
-                &mo 4               // 모드 전환 스위치
+                &to_keyboard               // 모드 전환 스위치
                 &m1_cycle           // 레이어 순환: 레이어 2로 이동
             >;
         };
@@ -85,7 +98,7 @@
             bindings = <
                 &mkp MCLK           // 풋스위치 1: 중간클릭
                 &mkp LCLK           // 풋스위치 2: 좌클릭
-                &mo 4               // 모드 전환 스위치
+                &to_keyboard               // 모드 전환 스위치
                 &m2_cycle           // 레이어 순환: 레이어 3으로 이동
             >;
         };
@@ -95,7 +108,7 @@
             bindings = <
                 &mkp LCLK           // 풋스위치 1: 좌클릭
                 &mkp MCLK           // 풋스위치 2: 중간클릭
-                &mo 4               // 모드 전환 스위치
+                &to_keyboard               // 모드 전환 스위치
                 &m3_cycle           // 레이어 순환: 레이어 0으로 이동
             >;
         };
@@ -105,7 +118,7 @@
             bindings = <
                 &kp A               // 풋스위치 1: A
                 &kp D               // 풋스위치 2: D
-                &trans              // 모드 전환 스위치
+                &to_mouse              // 모드 전환 스위치
                 &k4_cycle           // 레이어 순환: 레이어 5로 이동
             >;
         };
@@ -115,7 +128,7 @@
             bindings = <
                 &kp Q               // 풋스위치 1: Q
                 &kp W               // 풋스위치 2: W
-                &trans              // 모드 전환 스위치
+                &to_mouse              // 모드 전환 스위치
                 &k5_cycle           // 레이어 순환: 레이어 6으로 이동
             >;
         };
@@ -125,7 +138,7 @@
             bindings = <
                 &kp T               // 풋스위치 1: T
                 &kp Y               // 풋스위치 2: Y
-                &trans              // 모드 전환 스위치
+                &to_mouse              // 모드 전환 스위치
                 &k6_cycle           // 레이어 순환: 레이어 7로 이동
             >;
         };
@@ -135,7 +148,7 @@
             bindings = <
                 &kp Z               // 풋스위치 1: Z
                 &kp X               // 풋스위치 2: X
-                &trans              // 모드 전환 스위치
+                &to_mouse              // 모드 전환 스위치
                 &k7_cycle           // 레이어 순환: 레이어 4로 이동
             >;
         };
