@@ -1,25 +1,9 @@
 
-/ {
-    chosen {
-        zmk,kscan = &kscan0;
-        zephyr,display = &oled;
-    };
-
-    kscan0: kscan {
-        compatible = "zmk,kscan-gpio-direct";
-        
-        input-gpios =
-            <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 1 (P0.6)
-            <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2 (P0.8)
-            <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 슬라이드 스위치 (P0.17)
-            <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치
-    };
-};
-
+// SSD1306 OLED 핀아웃: SDA(P0.17), SCL(P0.20)
 &pro_micro_i2c {
     status = "okay";
 
-    oled: ssd1306@3c {
+    oled_128x32: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         width = <128>;
@@ -33,5 +17,22 @@
         com-sequential;
         inversion-on;
         prechargep = <0x22>;
+    };
+};
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+        zephyr,display = &oled_128x32;
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        
+        input-gpios =
+            <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 1(좌) (P0.6)
+            <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2(우) (P0.8)
+            <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 마우스/키보드 전환 스위치 (P0.22)
+            <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치 (P0.24)
     };
 };
