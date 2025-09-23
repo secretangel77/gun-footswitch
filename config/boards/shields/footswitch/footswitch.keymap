@@ -25,13 +25,13 @@
         to_mouse: to_mouse {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &to 6>;  // 6번 레이어로 이동
+            bindings = <&macro_tap &to 6>;  // 6번 레이어로 이동 - 마우스모드로 전환
         };
 
         to_keyboard: to_keyboard {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &to 0>;  // 0번 레이어로 이동
+            bindings = <&macro_tap &to 0>;  // 0번 레이어로 이동 - 키보드모드로 전환
         };
     }; 
 
