@@ -1,2 +1,0 @@
-config SHIELD_OLED_ADAPTER_PRO_MICRO_128X32
-    def_bool $(shields_list_contains,oled_adapter_pro_micro_128x32)
