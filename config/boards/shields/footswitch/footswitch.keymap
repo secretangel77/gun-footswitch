@@ -8,155 +8,69 @@
     behaviors {
         // 키보드 레이어 순환 매크로
         k0_cycle: k0_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 1>; }; // 레이어 0 → 1
-        k1_cycle: k1_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 2>; }; // 레이어 1 → 2
-        k2_cycle: k2_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 3>; }; // 레이어 2 → 3
-        k3_cycle: k3_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 4>; }; // 레이어 3 → 4
-        k4_cycle: k4_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 5>; }; // 레이어 4 → 5
-        k5_cycle: k5_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 0>; }; // 레이어 5 → 0
-
-        // 마우스 레이어 순환 매크로
-        m6_cycle:  m6_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 7>; }; // 레이어 6 → 7
-        m7_cycle:  m7_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 8>; }; // 레이어 7 → 8
-        m8_cycle:  m8_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 9>; }; // 레이어 8 → 9
-        m9_cycle:  m9_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 10>; }; // 레이어 9 → 10
-        m10_cycle: m10_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 11>; }; // 레이어 10 → 11
-        m11_cycle: m11_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 6>; }; // 레이어 11 → 6
-    };
-
-    keymap {
-        compatible = "zmk,keymap";
-
-        // ─── 키보드 레이어 0~5 ───
-        default_layer {
-            display-name = "Demul:R-M";
-            bindings = <
-                &kp F
-                &kp C
-                &to 6          
-                &k0_cycle
-            >;
-        };
-
-        keyboard_layer_1 {
-            display-name = "Demul:M-R";
-            bindings = <
-                &kp C
-                &kp F
-                &to 6
-                &k1_cycle
-            >;
-        };
-
-        keyboard_layer_2 {
-            display-name = "Demul:L-M";
-            bindings = <
-                &kp T
-                &kp C
-                &to 6
-                &k2_cycle
-            >;
-        };
-
-        keyboard_layer_3 {
-            display-name = "Demul:M-L";
-            bindings = <
-                &kp C
-                &kp T
-                &to 6
-                &k3_cycle
-            >;
-        };
-
-        keyboard_layer_4 {
-            display-name = "Demul:L-R";
-            bindings = <
-                &kp T
-                &kp F
-                &to 6
-                &k4_cycle
-            >;
-        };
-
-        keyboard_layer_5 {
-            display-name = "Demul:R-L";
-            bindings = <
-                &kp F
-                &kp T
-                &to 6
-                &k5_cycle
-            >;
-        };
-
-        // ─── 마우스 레이어 6~11 ───
-        //   세 번째 스위치 위치에 모두 &to 0 추가 → 언제든 0번 키보드 레이어 복귀
-        mouse_base {
-            display-name = "Mouse:L-R";
-            bindings = <
-                &mkp LCLK
-                &mkp RCLK
-                &to 0           // ⬅ 복귀
-                &m6_cycle
-            >;
-        };
-
+        k1_cycle: k1_cycle { compatible = "zmk,behavior-macr좌 마우스 모드 (Layer 7) ---
         mouse_layer_1 {
             display-name = "Mouse:R-L";
             bindings = <
-                &mkp RCLK
-                &mkp LCLK
-                &to 0
-                &m7_cycle
+                &mkp RCLK            // 풋스위치 1: 우클릭
+                &mkp LCLK            // 풋스위치 2: 좌클릭
+                to_keyboard          // 모드 전환 스위치
+                &m7_cycle            // 레이어 순환: 레이어 8로 이동
             >;
         };
 
+        // --- 8. 중+좌 마우스 모드 (Layer 8) ---
         mouse_layer_2 {
             display-name = "Mouse:M-L";
             bindings = <
-                &mkp MCLK
-                &mkp LCLK
-                &to 0
-                &m8_cycle
+                &mkp MCLK            // 풋스위치 1: 중간클릭
+                &mkp LCLK            // 풋스위치 2: 좌클릭
+                to_keyboard          // 모드 전환 스위치
+                &m8_cycle            // 레이어 순환: 레이어 9으로 이동
             >;
         };
 
+        // --- 9. 좌+중 마우스 모드 (Layer 9) ---
         mouse_layer_3 {
             display-name = "Mouse:L-M";
             bindings = <
-                &mkp LCLK
-                &mkp MCLK
-                &to 0
-                &m9_cycle
+                &mkp LCLK            // 풋스위치 1: 좌클릭
+                &mkp MCLK            // 풋스위치 2: 중간클릭
+                to_keyboard          // 모드 전환 스위치
+                &m9_cycle            // 레이어 순환: 레이어 10으로 이동
             >;
         };
 
+        // --- 10. 우+중 마우스 모드 (Layer 10) ---
         mouse_layer_4 {
             display-name = "Mouse:R-M";
             bindings = <
-                &mkp RCLK
-                &mkp MCLK
-                &to 0
-                &m10_cycle
+                &mkp RCLK            // 풋스위치 1: 우클릭
+                &mkp MCLK            // 풋스위치 2: 중간클릭
+                to_keyboard          // 모드 전환 스위치
+                &m10_cycle           // 레이어 순환: 레이어 11으로 이동
             >;
         };
 
+        // --- 11. 중+우 마우스 모드 (Layer 11) ---
         mouse_layer_5 {
             display-name = "Mouse:M-R";
             bindings = <
-                &mkp MCLK
-                &mkp RCLK
-                &to 0
-                &m11_cycle
+                &mkp MCLK            // 풋스위치 1: 중간클릭
+                &mkp RCLK            // 풋스위치 2: 우클릭
+                to_keyboard          // 모드 전환 스위치
+                &m11_cycle           // 레이어 순환: 레이어 6으로 이동
             >;
         };
     };
 
-    // 블루투스 초기화 콤보
+    // --- 콤보 설정 (블루투스 페어링 초기화) ---
     combos {
         compatible = "zmk,combos";
         combo_bt_clear {
             timeout-ms = <50>;
-            key-positions = <0 1>;
-            bindings = <&bt BT_CLR>;
+            key-positions = <0 1>; // 풋스위치 1번과 2번
+            bindings = <&bt BT_CLR>; // 동시에 누르면 블루투스 페어링 정보 초기화
         };
     };
 };
