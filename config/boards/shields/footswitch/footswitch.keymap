@@ -6,60 +6,167 @@
 
 / {
     behaviors {
-        // 키보드 레이어 순환 매크로
-        k0_cycle: k0_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 1>; }; // 레이어 0 → 1
-        k1_cycle: k1_cycle { compatible = "zmk,behavior-macr좌 마우스 모드 (Layer 7) ---
+        // 키보드 레이어 순환 매크로 (기존 그대로)
+        k0_cycle: k0_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 1>; };
+        k1_cycle: k1_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 2>; };
+        k2_cycle: k2_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 3>; };
+        k3_cycle: k3_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 4>; };
+        k4_cycle: k4_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 5>; };
+        k5_cycle: k5_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 0>; };
+
+        // 마우스 레이어 순환 매크로 (기존 그대로)
+        m6_cycle:  m6_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 7>; };
+        m7_cycle:  m7_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 8>; };
+        m8_cycle:  m8_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 9>; };
+        m9_cycle:  m9_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 10>; };
+        m10_cycle: m10_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 11>; };
+        m11_cycle: m11_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 6>; };
+
+        to_mouse: to_mouse {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 6>;  // 6번 레이어로 이동
+        };
+
+        to_keyboard: to_keyboard {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0>;  // 0번 레이어로 이동
+        };
+    }; 
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        // --- 0. 기본 키보드 모드 (Layer 0) --- 0 ~ 5
+        default_layer {
+            display-name = "Demul:R-M";
+            bindings = <
+                &kp F               // 풋스위치 1: F -> 데뮬슈터: Right
+                &kp C               // 풋스위치 2: C -> 데뮬슈터: middle
+                &to_mouse           // 모드 전환 스위치: 토글 -> 레이어 6으로 이동(마우스모드)
+                &k0_cycle           // 레이어 순환: 레이어 1으로 이동
+            >;
+        };
+ 
+        // --- 1. 키보드 모드 (Layer 1) ---
+        keyboard_layer_1 {
+            display-name = "Demul:M-R";
+            bindings = <
+                &kp C               // 풋스위치 1: C -> 데뮬슈터: middle
+                &kp F               // 풋스위치 2: F -> 데뮬슈터: Right
+                &to_mouse           // 모드 전환 스위치
+                &k1_cycle           // 레이어 순환: 레이어 2으로 이동
+            >;
+        };
+
+        // --- 2. 키보드 모드 (Layer 2) ---
+        keyboard_layer_2 {
+            display-name = "Demul:L-M";
+            bindings = <
+                &kp T               // 풋스위치 1: T -> 데뮬슈터: left
+                &kp C               // 풋스위치 2: C -> 데뮬슈터: middle
+                &to_mouse           // 모드 전환 스위치
+                &k2_cycle           // 레이어 순환: 레이어 3로 이동
+            >;
+        };
+
+        // --- 3. 키보드 모드 (Layer 3) ---
+        keyboard_layer_3 {
+            display-name = "Demul:M-L";
+            bindings = <
+                &kp C               // 풋스위치 1: C -> 데뮬슈터: middle
+                &kp T               // 풋스위치 2: T -> 데뮬슈터: left
+                &to_mouse           // 모드 전환 스위치
+                &k3_cycle           // 레이어 순환: 레이어 4로 이동
+            >;
+        };
+
+        // --- 4. 키보드 모드 (Layer 4) ---
+        keyboard_layer_4 {
+            display-name = "Demul:L-R";
+            bindings = <
+                &kp T               // 풋스위치 1: T -> 데뮬슈터: left
+                &kp F               // 풋스위치 2: F -> 데뮬슈터: Right
+                &to_mouse           // 모드 전환 스위치
+                &k4_cycle           // 레이어 순환: 레이어 5로 이동
+            >;
+        };
+
+        // --- 5. 키보드 모드 (Layer 5) ---
+        keyboard_layer_5 {
+            display-name = "Demul:R-L";
+            bindings = <
+                &kp F               // 풋스위치 1: F -> 데뮬슈터: Right
+                &kp T               // 풋스위치 2: T -> 데뮬슈터: left
+                &to_mouse           // 모드 전환 스위치
+                &k5_cycle           // 레이어 순환: 레이어 0로 이동
+            >;
+        };
+
+        // --- 6. 기본 마우스 모드 (Layer 6) ---
+        mouse_base {
+            display-name = "Mouse:L-R";
+            bindings = <
+                &mkp LCLK           // 풋스위치 1: 좌클릭
+                &mkp RCLK           // 풋스위치 2: 우클릭
+                &to_keyboard        // 모드 전환 스위치
+                &m6_cycle           // 레이어 순환: 레이어 7로 이동
+            >;
+        };
+
+        // --- 7. 마우스 모드 (Layer 7) ---
         mouse_layer_1 {
             display-name = "Mouse:R-L";
             bindings = <
-                &mkp RCLK            // 풋스위치 1: 우클릭
-                &mkp LCLK            // 풋스위치 2: 좌클릭
-                to_keyboard          // 모드 전환 스위치
-                &m7_cycle            // 레이어 순환: 레이어 8로 이동
+                &mkp RCLK           // 풋스위치 1: 우클릭
+                &mkp LCLK           // 풋스위치 2: 좌클릭
+                &to_keyboard        // 모드 전환 스위치
+                &m7_cycle           // 레이어 순환: 레이어 8로 이동
             >;
         };
 
-        // --- 8. 중+좌 마우스 모드 (Layer 8) ---
+        // --- 8. 마우스 모드 (Layer 8) ---
         mouse_layer_2 {
             display-name = "Mouse:M-L";
             bindings = <
-                &mkp MCLK            // 풋스위치 1: 중간클릭
-                &mkp LCLK            // 풋스위치 2: 좌클릭
-                to_keyboard          // 모드 전환 스위치
-                &m8_cycle            // 레이어 순환: 레이어 9으로 이동
+                &mkp MCLK           // 풋스위치 1: 중간클릭
+                &mkp LCLK           // 풋스위치 2: 좌클릭
+                &to_keyboard        // 모드 전환 스위치
+                &m8_cycle           // 레이어 순환: 레이어 9으로 이동
             >;
         };
 
-        // --- 9. 좌+중 마우스 모드 (Layer 9) ---
+        // --- 9. 마우스 모드 (Layer 9) ---
         mouse_layer_3 {
             display-name = "Mouse:L-M";
             bindings = <
-                &mkp LCLK            // 풋스위치 1: 좌클릭
-                &mkp MCLK            // 풋스위치 2: 중간클릭
-                to_keyboard          // 모드 전환 스위치
-                &m9_cycle            // 레이어 순환: 레이어 10으로 이동
+                &mkp LCLK           // 풋스위치 1: 좌클릭
+                &mkp MCLK           // 풋스위치 2: 중간클릭
+                &to_keyboard        // 모드 전환 스위치
+                &m9_cycle           // 레이어 순환: 레이어 10으로 이동
             >;
         };
 
-        // --- 10. 우+중 마우스 모드 (Layer 10) ---
+        // --- 10. 마우스 모드 (Layer 10) ---
         mouse_layer_4 {
             display-name = "Mouse:R-M";
             bindings = <
-                &mkp RCLK            // 풋스위치 1: 우클릭
-                &mkp MCLK            // 풋스위치 2: 중간클릭
-                to_keyboard          // 모드 전환 스위치
-                &m10_cycle           // 레이어 순환: 레이어 11으로 이동
+                &mkp RCLK           // 풋스위치 1: 우클릭
+                &mkp MCLK           // 풋스위치 2: 중간클릭
+                &to_keyboard        // 모드 전환 스위치
+                &m10_cycle          // 레이어 순환: 레이어 11으로 이동
             >;
         };
 
-        // --- 11. 중+우 마우스 모드 (Layer 11) ---
+        // --- 11. 마우스 모드 (Layer 11) ---
         mouse_layer_5 {
             display-name = "Mouse:M-R";
             bindings = <
-                &mkp MCLK            // 풋스위치 1: 중간클릭
-                &mkp RCLK            // 풋스위치 2: 우클릭
-                to_keyboard          // 모드 전환 스위치
-                &m11_cycle           // 레이어 순환: 레이어 6으로 이동
+                &mkp MCLK           // 풋스위치 1: 중간클릭
+                &mkp RCLK           // 풋스위치 2: 우클릭
+                &to_keyboard        // 모드 전환 스위치
+                &m11_cycle          // 레이어 순환: 레이어 6으로 이동
             >;
         };
     };
