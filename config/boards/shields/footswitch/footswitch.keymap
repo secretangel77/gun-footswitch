@@ -6,21 +6,21 @@
 
 / {
     behaviors {
-        // 키보드 레이어 순환 매크로 (기존 그대로)
-        k0_cycle: k0_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 1>; };
-        k1_cycle: k1_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 2>; };
-        k2_cycle: k2_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 3>; };
-        k3_cycle: k3_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 4>; };
-        k4_cycle: k4_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 5>; };
-        k5_cycle: k5_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 0>; };
+        // 키보드 레이어 순환 매크로
+        k0_cycle: k0_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 1>; }; // 레이어 0 → 1
+        k1_cycle: k1_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 2>; }; // 레이어 1 → 2
+        k2_cycle: k2_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 3>; }; // 레이어 2 → 3
+        k3_cycle: k3_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 4>; }; // 레이어 3 → 4
+        k4_cycle: k4_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 5>; }; // 레이어 4 → 5
+        k5_cycle: k5_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 0>; }; // 레이어 5 → 0
 
-        // 마우스 레이어 순환 매크로 (기존 그대로)
-        m6_cycle:  m6_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 7>; };
-        m7_cycle:  m7_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 8>; };
-        m8_cycle:  m8_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 9>; };
-        m9_cycle:  m9_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 10>; };
-        m10_cycle: m10_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 11>; };
-        m11_cycle: m11_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 6>; };
+        // 마우스 레이어 순환 매크로
+        m6_cycle:  m6_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 7>; }; // 레이어 6 → 7
+        m7_cycle:  m7_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 8>; }; // 레이어 7 → 8
+        m8_cycle:  m8_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 9>; }; // 레이어 8 → 9
+        m9_cycle:  m9_cycle  { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 10>; }; // 레이어 9 → 10
+        m10_cycle: m10_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 11>; }; // 레이어 10 → 11
+        m11_cycle: m11_cycle { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_tap &to 6>; }; // 레이어 11 → 6
     };
 
     keymap {
@@ -32,7 +32,7 @@
             bindings = <
                 &kp F
                 &kp C
-                &to 6          // ⬅ 명시적 진입 (기존 &tog 6 → &to 6)
+                &to 6          
                 &k0_cycle
             >;
         };
@@ -150,7 +150,7 @@
         };
     };
 
-    // 블루투스 초기화 콤보 (그대로 유지)
+    // 블루투스 초기화 콤보
     combos {
         compatible = "zmk,combos";
         combo_bt_clear {
