@@ -23,7 +23,6 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,battery = &vbatt;
         zephyr,display = &oled_128x32;
     };
 
@@ -35,8 +34,5 @@
             <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // 풋스위치 2(우) (P0.8)
             <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 마우스/키보드 전환 스위치 (P0.22)
             <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치 (P0.24)
-    };
-     vbatt: vbatt {
-        compatible = "zmk,battery-nrf-vddh";
     };
 };
