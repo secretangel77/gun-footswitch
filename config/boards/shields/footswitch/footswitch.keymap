@@ -40,7 +40,7 @@
 
         // --- 0. 기본 키보드 모드 (Layer 0) --- 0 ~ 5
         default_layer {
-            display-name = "Key1: R-M";
+            display-name = "Key①: R-M";
             bindings = <
                 &kp F               // 풋스위치 1: F -> 데뮬슈터: Right
                 &kp C               // 풋스위치 2: C -> 데뮬슈터: middle
