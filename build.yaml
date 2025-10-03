@@ -21,3 +21,5 @@
 include:
   - board: nice_nano_v2
     shield: footswitch
+  - board: nice_nano_v2
+    shield: settings_reset
