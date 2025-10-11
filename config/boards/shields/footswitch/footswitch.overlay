@@ -43,14 +43,26 @@
         compatible = "pwm-leds";
         status = "okay";
         buzzer_pwm: buzzer_pwm {
-            // pwm 컨트롤러, 채널, 폴라리티
+            /* pwm 컨트롤러, 채널, 폴라리티 */
             pwms = <&pwm0 0 0 PWM_POLARITY_NORMAL>;
             label = "buzzer_pwm";
         };
     };
 };
 
-// nRF52840의 PWM0 활성화
+// PWM0 활성화 + pinctrl로 채널0을 P0.29에 매핑
 &pwm0 {
     status = "okay";
+    pinctrl-0 = <&pwm0_ch0_p0_29>;
+    pinctrl-names = "default";
+};
+
+// pinctrl 정의: PWM0 CH0 -> P0.29
+&pinctrl {
+    pwm0_ch0_p0_29: pwm0_ch0_p0_29 {
+        nordic,pins = <NRF_P0_PIN(29)>;
+        nordic,function = <NRF_P0_PWM0_CH0>;
+        nordic,drive = <NRF_DRIVE_S0S1>;
+        nordic,pull = <NRF_PULL_NONE>;
+    };
 };
