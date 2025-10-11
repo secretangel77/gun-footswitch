@@ -37,3 +37,20 @@
             <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 레이어 순환 스위치 (P0.24)
     };
 };
+
+/ {
+    buzzer: buzzer {
+        compatible = "pwm-leds";
+        status = "okay";
+        buzzer_pwm: buzzer_pwm {
+            // pwm 컨트롤러, 채널, 폴라리티
+            pwms = <&pwm0 0 0 PWM_POLARITY_NORMAL>;
+            label = "buzzer_pwm";
+        };
+    };
+};
+
+// nRF52840의 PWM0 활성화
+&pwm0 {
+    status = "okay";
+};
