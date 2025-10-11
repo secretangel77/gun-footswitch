@@ -57,9 +57,9 @@
 
 &pinctrl {
     pwm0_ch0_p0_29: pwm0_ch0_p0_29 {
-        nordic,pins = <NRF_P0_PIN(29)>;
-        nordic,function = <NRF_P0_PWM0_CH0>;
-        nordic,drive = <NRF_DRIVE_S0S1>;
-        nordic,pull = <NRF_PULL_NONE>;
+        nrf,pins  = <NRF_P0_PIN(29)>;
+        nrf,func  = <NRF_PSEL(PWM0_CH0)>;
+        nrf,drive = <NRF_DRIVE_S0S1>;
+        nrf,pull  = <NRF_PULL_NONE>;
     };
 };
