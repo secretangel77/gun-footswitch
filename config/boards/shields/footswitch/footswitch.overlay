@@ -38,4 +38,13 @@
     };
 };
 
-
+/ {
+    buzzer: buzzer {
+        compatible = "pwm-leds";
+        status = "okay";
+        buzzer_pwm: buzzer_pwm {
+            pwms = <&pwm0 0 0 PWM_POLARITY_NORMAL>;
+            label = "buzzer_pwm";
+        };
+    };
+};
