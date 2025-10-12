@@ -3,7 +3,7 @@
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/pwm.h>
 
-#define BUZZER_NODE DT_PATH(buzzer, buzzer_pwm)
+#define BUZZER_NODE DT_NODELABEL(buzzer_pwm)
 
 #if !DT_NODE_HAS_STATUS(BUZZER_NODE, okay)
 #error "Buzzer PWM node not found or not okay"
@@ -22,7 +22,7 @@ void buzzer_init(void) {
         printk("buzzer: pwm device not ready\n");
         return;
     }
-    /* 초기 OFF */
+    /* OFF 초기화 */
     pwm_set(pwm_dev, pwm_channel, 1000000, 0, 0);
 }
 
@@ -31,7 +31,7 @@ void buzzer_play_tone(int freq_hz, int duty_pct, int duration_ms) {
 
     freq_hz = (int)clamp_u32(freq_hz, 200, 8000);
     duty_pct = (int)clamp_u32(duty_pct, 1, 90);
-    duration_ms = (int)clamp_u32(duration_ms, 10, 1000);
+    duration_ms = (int)clamp_u32(duration_ms, 10, 2000);
 
     uint32_t period_ns = 1000000000UL / (uint32_t)freq_hz;
     uint32_t pulse_ns = (period_ns * (uint32_t)duty_pct) / 100U;
@@ -39,14 +39,4 @@ void buzzer_play_tone(int freq_hz, int duty_pct, int duration_ms) {
     pwm_set(pwm_dev, pwm_channel, period_ns, pulse_ns, 0);
     k_msleep(duration_ms);
     pwm_set(pwm_dev, pwm_channel, period_ns, 0, 0);
-}
-
-void buzzer_beep_connected(void) {
-    buzzer_play_tone(2400, 40, 100);
-}
-
-void buzzer_beep_disconnected(void) {
-    buzzer_play_tone(1200, 40, 80);
-    k_msleep(60);
-    buzzer_play_tone(1200, 40, 80);
 }
